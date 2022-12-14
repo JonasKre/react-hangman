@@ -16,18 +16,21 @@ function App() {
     incorrectGuesses,
     getLetterStatus,
     isGameOver,
-  } = useHangman("happyhob");
+    totalRounds,
+    currentRound,
+  } = useHangman(["dampfschiff"]);
 
   return (
     <>
       <Section>
         <Container>
+          Round {currentRound} of {totalRounds}
           <ProgressBar numberOfTries={5} currentTry={incorrectGuesses.length} />
         </Container>
       </Section>
       <Section>
         <Container>
-          {searchedWord.map((letter, index) => (
+          {[...searchedWord].map((letter, index) => (
             <Letter key={index}>
               {correctGuesses.includes(letter) ? letter : ""}
             </Letter>

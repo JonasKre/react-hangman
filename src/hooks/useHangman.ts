@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
-export default function useHangman(solution: string) {
-  const [searchedWord, setSearchedWord] = useState([...solution]);
+export default function useHangman(words: string[]) {
+  const totalRounds = words.length;
+  const [currentRound, setCurrentRound] = useState(1);
+  const [searchedWord, setSearchedWord] = useState(words[0]);
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([]);
   const [incorrectGuesses, setIncorrectGuesses] = useState<string[]>([]);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -40,6 +42,8 @@ export default function useHangman(solution: string) {
     correctGuesses,
     incorrectGuesses,
     getLetterStatus,
+    currentRound,
+    totalRounds,
     isGameOver,
   };
 }
