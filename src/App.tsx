@@ -37,17 +37,15 @@ function App() {
       <Section highlighted>
         <Container>
           <Keyboard>
-            {ALPHABET.map((letter) => {
-              return (
-                <Key
-                  key={letter}
-                  handleClick={handleAddLetter}
-                  status={getLetterStatus(letter)}
-                >
-                  {letter}
-                </Key>
-              );
-            })}
+            {ALPHABET.map((letter) => (
+              <Key
+                key={letter}
+                handleClick={handleAddLetter}
+                status={getLetterStatus(letter)}
+              >
+                {letter}
+              </Key>
+            ))}
           </Keyboard>
         </Container>
       </Section>
