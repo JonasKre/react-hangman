@@ -1,0 +1,12 @@
+@import "../../colors.scss";
+
+.keyboard {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 50rem;
+  gap: 1.25rem;
+  z-index: 1;
+}

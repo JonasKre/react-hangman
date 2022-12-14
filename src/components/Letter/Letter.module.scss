@@ -1,0 +1,16 @@
+@import "../../colors.scss";
+
+.base {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 0.125rem dashed $color-white;
+  background: rgba($color-white, 0.08);
+  color: $color-white;
+  border-radius: 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}

@@ -1,0 +1,54 @@
+@import "../../colors.scss";
+
+.key {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  width: 3.5rem;
+  height: 3.5rem;
+  color: $color-primary;
+  background-color: $color-tertiary;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: 0.25rem;
+  transition: outline 0.3s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+
+  &:not(.correct, .incorrect) {
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: $color-secondary;
+      width: 100%;
+      height: 100%;
+      border-radius: 0.25rem;
+      transition: scale 0.3s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+      z-index: -1;
+    }
+
+    &:hover {
+      outline: $color-primary 0.1875rem solid;
+
+      &::after {
+        scale: 1.3;
+      }
+    }
+  }
+
+  &.correct {
+    color: $color-white;
+    background-color: $color-correct;
+  }
+
+  &.incorrect {
+    color: $color-white;
+    background-color: $color-incorrect;
+  }
+}

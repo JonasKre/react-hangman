@@ -1,34 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import "@fontsource/open-sans";
+import Container from "./components/Container/Container";
+import Key from "./components/Key/Key";
+import Keyboard from "./components/Keyboard/Keyboard";
+import Letter from "./components/Letter/Letter";
+import ProgressBar from "./components/ProgressBar/ProgressBar";
+import Section from "./components/Section/Section";
+import ALPHABET from "./constants/alphabet";
+import useHangman from "./hooks/useHangman";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {
+    handleAddLetter,
+    searchedWord,
+    correctGuesses,
+    incorrectGuesses,
+    getLetterStatus,
+    isGameOver,
+  } = useHangman("happyhob");
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <>
+      <Section>
+        <Container>
+          <ProgressBar numberOfTries={5} currentTry={incorrectGuesses.length} />
+        </Container>
+      </Section>
+      <Section>
+        <Container>
+          {searchedWord.map((letter, index) => (
+            <Letter key={index}>
+              {correctGuesses.includes(letter) ? letter : ""}
+            </Letter>
+          ))}
+        </Container>
+      </Section>
+      <Section highlighted>
+        <Container>
+          <Keyboard>
+            {ALPHABET.map((letter) => {
+              return (
+                <Key
+                  key={letter}
+                  handleClick={handleAddLetter}
+                  status={getLetterStatus(letter)}
+                >
+                  {letter}
+                </Key>
+              );
+            })}
+          </Keyboard>
+        </Container>
+      </Section>
+    </>
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,9 @@
+@import "../../colors.scss";
+
+.section {
+  padding: 4rem 0;
+
+  &.highlighted {
+    background-color: $color-primary-light;
+  }
+}
