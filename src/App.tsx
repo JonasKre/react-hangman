@@ -1,4 +1,5 @@
 import "@fontsource/open-sans";
+import Button from "./components/Button/Button";
 import Container from "./components/Container/Container";
 import Key from "./components/Key/Key";
 import Keyboard from "./components/Keyboard/Keyboard";
@@ -9,6 +10,7 @@ import ALPHABET from "./constants/alphabet";
 import useHangman from "./hooks/useHangman";
 
 function App() {
+  const tries = 5;
   const {
     handleAddLetter,
     searchedWord,
@@ -16,16 +18,27 @@ function App() {
     incorrectGuesses,
     getLetterStatus,
     isGameOver,
+    isRoundOver,
     totalRounds,
     currentRound,
-  } = useHangman(["dampfschiff"]);
+    goToNextRound,
+  } = useHangman(["test", "blupp"], tries);
+  const showButton = currentRound !== totalRounds;
 
   return (
     <>
       <Section>
         <Container>
           Round {currentRound} of {totalRounds}
-          <ProgressBar numberOfTries={5} currentTry={incorrectGuesses.length} />
+          <ProgressBar
+            numberOfTries={tries}
+            currentTry={incorrectGuesses.length}
+          />
+          {showButton && (
+            <Button onClick={goToNextRound} disabled={!isRoundOver}>
+              Next Round
+            </Button>
+          )}
         </Container>
       </Section>
       <Section>

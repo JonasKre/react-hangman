@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 
-export default function useHangman(words: string[]) {
+export default function useHangman(words: string[], maxTriesAmount: number) {
   const totalRounds = words.length;
   const [currentRound, setCurrentRound] = useState(1);
-  const [searchedWord, setSearchedWord] = useState(words[0]);
+  const [searchedWord, setSearchedWord] = useState(words[currentRound - 1]);
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([]);
   const [incorrectGuesses, setIncorrectGuesses] = useState<string[]>([]);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [isRoundOver, setisRoundOver] = useState(false);
 
-  const handleAddLetter = (letter: string) => {
-    if ([...correctGuesses, ...incorrectGuesses].includes(letter)) {
+  const handleLetterClick = (letter: string) => {
+    if (
+      [...correctGuesses, ...incorrectGuesses].includes(letter) ||
+      isRoundOver ||
+      isGameOver
+    ) {
       return;
     }
 
@@ -30,14 +35,33 @@ export default function useHangman(words: string[]) {
       : "incorrect";
   };
 
+  const goToNextRound = () => {
+    setCurrentRound((previousRound) => previousRound + 1);
+    setCorrectGuesses([]);
+    setIncorrectGuesses([]);
+    setisRoundOver(false);
+  };
+
+  useEffect(() => {
+    setSearchedWord(words[currentRound - 1]);
+  }, [currentRound]);
+
   useEffect(() => {
     if ([...searchedWord].every((x) => correctGuesses.includes(x))) {
+      setisRoundOver(true);
+
+      if (currentRound === totalRounds) {
+        setIsGameOver(true);
+      }
+    }
+
+    if (incorrectGuesses.length === maxTriesAmount) {
       setIsGameOver(true);
     }
-  }, [correctGuesses.length]);
+  }, [correctGuesses.length, incorrectGuesses.length]);
 
   return {
-    handleAddLetter,
+    handleAddLetter: handleLetterClick,
     searchedWord,
     correctGuesses,
     incorrectGuesses,
@@ -45,5 +69,7 @@ export default function useHangman(words: string[]) {
     currentRound,
     totalRounds,
     isGameOver,
+    isRoundOver,
+    goToNextRound,
   };
 }

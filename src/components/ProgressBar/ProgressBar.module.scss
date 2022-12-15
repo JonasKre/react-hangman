@@ -1,10 +1,9 @@
-@import "../../colors.scss";
-
 .progress {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1.25rem 0;
   gap: 1rem;
 
   .bar {

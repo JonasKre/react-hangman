@@ -1,0 +1,16 @@
+.button {
+  background-color: $color-tertiary;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  color: $color-primary;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:disabled {
+    cursor: auto;
+    background-color: rgba($color-secondary, 0.5);
+  }
+}
