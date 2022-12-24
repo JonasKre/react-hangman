@@ -1,4 +1,5 @@
-export default [
+export const NUMBER_OF_TRIES = 5;
+export const LETTERS = [
   "a",
   "b",
   "c",

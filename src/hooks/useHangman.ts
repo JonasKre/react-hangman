@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
+import { NUMBER_OF_TRIES } from "../consts";
+import useWordsFromUrl from "./useWordsFromUrl";
 
-export default function useHangman(words: string[], maxTriesAmount: number) {
-  const totalRounds = words.length;
+export default function useHangman() {
+  const words = useWordsFromUrl();
   const [currentRound, setCurrentRound] = useState(1);
-  const [searchedWord, setSearchedWord] = useState(words[currentRound - 1]);
+  const [searchedWord, setSearchedWord] = useState(words[0]);
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([]);
   const [incorrectGuesses, setIncorrectGuesses] = useState<string[]>([]);
-  const [isGameOver, setIsGameOver] = useState(false);
   const [isRoundOver, setisRoundOver] = useState(false);
+  const numberOfRounds = words.length;
+  const isGameLost = incorrectGuesses.length === NUMBER_OF_TRIES;
+  const isGameWon = currentRound === numberOfRounds && isRoundOver;
 
   const handleLetterClick = (letter: string) => {
     if (
       [...correctGuesses, ...incorrectGuesses].includes(letter) ||
-      isRoundOver ||
-      isGameOver
+      isRoundOver
     ) {
       return;
     }
@@ -49,14 +52,6 @@ export default function useHangman(words: string[], maxTriesAmount: number) {
   useEffect(() => {
     if ([...searchedWord].every((x) => correctGuesses.includes(x))) {
       setisRoundOver(true);
-
-      if (currentRound === totalRounds) {
-        setIsGameOver(true);
-      }
-    }
-
-    if (incorrectGuesses.length === maxTriesAmount) {
-      setIsGameOver(true);
     }
   }, [correctGuesses.length, incorrectGuesses.length]);
 
@@ -67,8 +62,9 @@ export default function useHangman(words: string[], maxTriesAmount: number) {
     incorrectGuesses,
     getLetterStatus,
     currentRound,
-    totalRounds,
-    isGameOver,
+    numberOfRounds,
+    isGameLost,
+    isGameWon,
     isRoundOver,
     goToNextRound,
   };

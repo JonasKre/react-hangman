@@ -1,0 +1,37 @@
+.backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color-primary, 0.7);
+  backdrop-filter: blur(0.25rem);
+  z-index: 99;
+}
+
+.modal {
+  background-color: $color-white;
+  border-radius: 0.25rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 2rem 1rem;
+  max-width: 500px;
+  width: 100%;
+
+  .heading {
+    text-align: center;
+    color: $color-primary;
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .body {
+    text-align: center;
+    color: $color-primary-light;
+    margin: 0;
+    font-size: 1.25rem;
+  }
+}
